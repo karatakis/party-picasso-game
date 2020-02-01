@@ -50,8 +50,7 @@ export default {
       /**
        * Used for double click gesture
        */
-      // let lastClicked = null
-      // let lastTimestamp = null
+      let lastClicked = null
 
       // add base image
       this.add.image(247, 400, 'base')
@@ -90,7 +89,6 @@ export default {
        */
       const transform = _.throttle((transformType, rect, part) => {
         if (!rect.getBounds().contains(part.x, part.y)) {
-          console.warn('out')
           return
         }
         switch (transformType) {
@@ -100,9 +98,6 @@ export default {
           case 'decreaseSizeRect':
             part.setDisplaySize(part.width -= 5, part.height -= 5)
             break
-          // case 'flipRect':
-          //   part.setFlipX(!part.flipX)
-          //   break
           case 'rotateLeftRect':
             part.setAngle(part.angle -= 4)
             break
@@ -149,6 +144,14 @@ export default {
         partObj.setInteractive()
 
         this.input.setDraggable(partObj)
+
+        partObj.on('pointerdown', () => {
+          const timeNow = new Date().getTime()
+          if (timeNow - lastClicked <= 200) {
+            partObj.setFlipX(!partObj.flipX)
+          }
+          lastClicked = timeNow
+        })
 
         partObj.once('pointerdown', (pointer) => {
           componentsGroup.add(partObj)
