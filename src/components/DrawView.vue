@@ -50,8 +50,8 @@ export default {
       /**
        * Used for double click gesture
        */
-      let lastClicked = null
-      let lastTimestamp = null
+      // let lastClicked = null
+      // let lastTimestamp = null
 
       // add base image
       this.add.image(247, 400, 'base')
@@ -68,7 +68,6 @@ export default {
       const rotateLeftRect = this.add.rectangle(350, 50, 100, 100, 0x00EEFF)
       // used to inidcate rotate part area
       const rotateRightRect = this.add.rectangle(450, 50, 100, 100, 0x0000FF)
-
 
       /**
        * Register rectangles to physics engine
@@ -157,7 +156,6 @@ export default {
         })
       }
 
-
       /**
        * Generate painting parts on toolbox bar
        */
@@ -166,7 +164,7 @@ export default {
       parts.forEach((part) => {
         const x = 494 + xDiff
         const y = yDiff
-// TODO memory leak
+
         console.log('add part', part, x, y)
 
         createPart(x, y, part)
